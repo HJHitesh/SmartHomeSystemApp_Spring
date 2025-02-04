@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Device Schedules</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>Device Schedules</h1>
+    
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Device ID</th>
+            <th>Time</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="schedule : ${schedules}">
+            <td th:text="${schedule.id}"></td>
+            <td th:text="${schedule.deviceId}"></td>
+            <td th:text="${schedule.time}"></td>
+            <td th:text="${schedule.action ? 'Turn On' : 'Turn Off'}"></td>
+        </tr>
+    </table>
+
+    <h2>Add New Schedule</h2>
+    <form th:action="@{/schedules/add}" method="post">
+        <label>Device ID: <input type="text" name="deviceId" required></label><br>
+        <label>Time: <input type="datetime-local" name="time" required></label><br>
+        <label>Action:
+            <select name="action">
+                <option value="true">Turn On</option>
+                <option value="false">Turn Off</option>
+            </select>
+        </label><br>
+        <button type="submit">Add Schedule</button>
+    </form>
+
+    <br>
+    <a href="/devices">Back to Devices</a>
+</body>
+</html>
